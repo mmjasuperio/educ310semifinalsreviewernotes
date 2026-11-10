@@ -1,0 +1,870 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Media &amp; Financial Literacy Reviewer</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Inter:wght@400;500;600;700&display=swap">
+<style>
+/* Layout: one study desk — sticky mode bar, a single reading column; notes, cards, practice and match share it. */
+:root{
+  --bg:#f3f5f9; --surface:#ffffff; --surface-2:#e8edf5; --line:#d5dce8;
+  --ink:#16213a; --muted:#56627a;
+  --media:#2456c9; --media-soft:#e1e9fb;
+  --money:#0f7a5a; --money-soft:#dcf1e8;
+  --accent:#e2a21b; --good:#1d8a4f; --good-soft:#ddf3e6; --bad:#c23b2b; --bad-soft:#fbe3df;
+  --display:"Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
+  --body:"Inter", "Segoe UI", system-ui, -apple-system, sans-serif;
+  --r:14px;
+}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){
+  --bg:#0f141f; --surface:#171e2d; --surface-2:#202a3d; --line:#2c3850;
+  --ink:#e6ebf5; --muted:#9aa6bd;
+  --media:#7ea3ff; --media-soft:#1c2a4d; --money:#4fd1a2; --money-soft:#123a2f;
+  --accent:#f0b93c; --good:#5fd394; --good-soft:#143a28; --bad:#ff8a7a; --bad-soft:#40201c; color-scheme:dark }}
+:root[data-theme="dark"]{
+  --bg:#0f141f; --surface:#171e2d; --surface-2:#202a3d; --line:#2c3850;
+  --ink:#e6ebf5; --muted:#9aa6bd;
+  --media:#7ea3ff; --media-soft:#1c2a4d; --money:#4fd1a2; --money-soft:#123a2f;
+  --accent:#f0b93c; --good:#5fd394; --good-soft:#143a28; --bad:#ff8a7a; --bad-soft:#40201c; color-scheme:dark }
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+body{background:var(--bg);color:var(--ink);font:16px/1.6 var(--body)}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--surface)}
+.wrap{max-width:760px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+header.top{padding-block:28px 18px}
+.eyebrow{font-size:.75rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+h1{font-family:var(--display);font-weight:800;font-size:clamp(1.8rem,5vw,2.6rem);line-height:1.08;margin:6px 0 8px;text-wrap:balance}
+h1 .m{color:var(--media)} h1 .f{color:var(--money)}
+.lead{color:var(--muted);margin:0;max-width:60ch}
+nav.modes{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--surface);border-bottom:1px solid var(--line)}
+nav.modes .wrap{display:flex;gap:4px;overflow-x:auto;padding-block:8px}
+nav.modes a{flex:none;text-decoration:none;color:var(--muted);font-weight:600;padding:8px 14px;border-radius:999px;font-size:.95rem}
+nav.modes a[aria-current="page"]{background:var(--ink);color:var(--surface)}
+nav.modes a:focus-visible,button:focus-visible,summary:focus-visible,input:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+main{padding-block:22px 60px}
+h2{font-family:var(--display);font-weight:800;font-size:1.5rem;margin:0 0 4px}
+.sub{color:var(--muted);margin:0 0 18px}
+.row{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.chip{border:1px solid var(--line);background:var(--surface);color:var(--ink);font:600 .88rem var(--body);padding:7px 13px;border-radius:999px;cursor:pointer}
+.chip[aria-pressed="true"]{background:var(--ink);color:var(--surface);border-color:var(--ink)}
+input[type=search]{flex:1 1 220px;min-width:0;font:inherit;padding:9px 14px;border:1px solid var(--line);border-radius:999px;background:var(--surface);color:var(--ink)}
+.tag{display:inline-block;font-size:.7rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:2px 8px;border-radius:6px}
+.tag.M{background:var(--media-soft);color:var(--media)} .tag.F{background:var(--money-soft);color:var(--money)}
+button{font:inherit}
+.btn{border:0;border-radius:10px;padding:10px 18px;font-weight:700;cursor:pointer;background:var(--ink);color:var(--surface)}
+.btn.ghost{background:transparent;color:var(--ink);border:1px solid var(--line)}
+.btn.good{background:var(--good);color:#fff} .btn.bad{background:var(--bad);color:#fff}
+.btn:disabled{opacity:.4;cursor:default}
+
+/* Notes */
+.progress-line{font-size:.9rem;color:var(--muted);margin:14px 0 10px}
+.notes{display:grid;gap:10px}
+details.note{background:var(--surface);border:1px solid var(--line);border-radius:var(--r)}
+details.note>summary{list-style:none;cursor:pointer;padding:14px 16px;display:flex;gap:12px;align-items:center}
+details.note>summary::-webkit-details-marker{display:none}
+summary .t{flex:1;min-width:0;font-weight:700}
+summary .chev{transition:transform .2s;color:var(--muted)}
+details[open] summary .chev{transform:rotate(90deg)}
+.done-dot{width:22px;height:22px;border-radius:50%;border:2px solid var(--line);flex:none;display:grid;place-items:center;font-size:.75rem;color:transparent}
+.note.read .done-dot{background:var(--good);border-color:var(--good);color:#fff}
+.nb{padding:0 18px 16px;border-top:1px solid var(--line)}
+.nb p{margin:12px 0}
+.nb ul,.nb ol{margin:10px 0;padding-left:22px}
+.nb li{margin:6px 0}
+.nb b{color:var(--ink)}
+.cite{color:var(--muted);font-size:.85em}
+.key{background:var(--surface-2);border-radius:10px;padding:10px 14px;margin:12px 0}
+.tbl{overflow-x:auto;margin:12px 0}
+.tbl table{border-collapse:collapse;min-width:620px;font-size:.9rem}
+.tbl th,.tbl td{border:1px solid var(--line);padding:8px 10px;text-align:left;vertical-align:top}
+.tbl th{background:var(--surface-2)}
+.mark{display:flex;justify-content:flex-end;margin-top:8px}
+.empty{color:var(--muted);padding:20px 0}
+
+/* Flashcards */
+.deck{margin-top:16px}
+.fc{perspective:1200px;cursor:pointer;margin:14px 0}
+.fc-in{position:relative;min-height:260px;transition:transform .45s;transform-style:preserve-3d}
+.fc.flip .fc-in{transform:rotateY(180deg)}
+.face{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:24px;display:flex;flex-direction:column;justify-content:center;gap:10px;overflow:auto}
+.face.back{transform:rotateY(180deg);background:var(--surface-2)}
+.face .term{font-family:var(--display);font-weight:800;font-size:clamp(1.4rem,4.5vw,1.9rem);line-height:1.2;text-wrap:balance}
+.face .def{font-size:1.05rem}
+.hint{color:var(--muted);font-size:.85rem}
+.counter{font-variant-numeric:tabular-nums;color:var(--muted);font-size:.9rem}
+.bar{height:6px;background:var(--surface-2);border-radius:99px;overflow:hidden;margin:8px 0}
+.bar i{display:block;height:100%;background:var(--accent);width:0;transition:width .3s}
+
+/* Practice */
+.card{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:22px}
+.q{font-size:1.12rem;font-weight:600;margin:10px 0 16px}
+.opts{display:grid;gap:10px}
+.opt{display:flex;gap:12px;align-items:flex-start;text-align:left;width:100%;padding:12px 14px;border-radius:12px;border:1.5px solid var(--line);background:var(--bg);color:var(--ink);cursor:pointer;font-weight:500}
+.opt .l{flex:none;width:26px;height:26px;border-radius:7px;display:grid;place-items:center;background:var(--surface);border:1px solid var(--line);font-weight:700;font-size:.85rem}
+.opt.right{border-color:var(--good);background:var(--good-soft)}
+.opt.wrong{border-color:var(--bad);background:var(--bad-soft)}
+.opt:disabled{cursor:default}
+.fb{margin-top:14px;padding:12px 14px;border-radius:12px;font-size:.95rem}
+.fb.ok{background:var(--good-soft)} .fb.no{background:var(--bad-soft)}
+.fb strong{display:block;margin-bottom:2px}
+.setup{display:grid;gap:16px}
+.setup label{font-weight:700;display:block;margin-bottom:6px}
+.score{font-family:var(--display);font-weight:800;font-size:3.2rem;line-height:1;margin:6px 0}
+.miss{border-top:1px solid var(--line);padding:12px 0}
+.miss .a{color:var(--good);font-weight:600}
+
+/* Match */
+.match{display:grid;grid-template-columns:1fr 1.4fr;gap:10px;margin-top:14px}
+.match .col{display:grid;gap:8px;align-content:start;min-width:0}
+.tile{text-align:left;padding:11px 12px;border-radius:12px;border:1.5px solid var(--line);background:var(--surface);color:var(--ink);cursor:pointer;font-size:.92rem;line-height:1.35}
+.tile.auth{font-weight:700}
+.tile.sel{border-color:var(--accent);box-shadow:0 0 0 2px var(--accent) inset}
+.tile.ok{background:var(--good-soft);border-color:var(--good);color:var(--ink);cursor:default}
+.tile.shake{animation:sh .35s}
+@keyframes sh{25%{transform:translateX(-4px)}75%{transform:translateX(4px)}}
+@media (max-width:520px){.match{grid-template-columns:1fr}}
+@media (prefers-reduced-motion:reduce){.fc-in,.bar i{transition:none}.tile.shake{animation:none}}
+footer{color:var(--muted);font-size:.85rem;padding-block:0 40px}
+</style>
+
+<header class="top"><div class="wrap">
+  <div class="eyebrow">Modules 7 &amp; 8 · Building and Enhancing New Literacies Across the Curriculum</div>
+  <h1><span class="m">Media</span> &amp; <span class="f">Financial</span> Literacy Reviewer</h1>
+  <p class="lead">Read the notes, drill the flashcards, test yourself with practice questions, and match each author to their idea. Your progress stays on your own device.</p>
+</div></header>
+
+<nav class="modes" aria-label="Reviewer sections"><div class="wrap">
+  <a href="#notes" data-v="notes">Study notes</a>
+  <a href="#cards" data-v="cards">Flashcards</a>
+  <a href="#practice" data-v="practice">Practice test</a>
+  <a href="#match" data-v="match">Who said it?</a>
+</div></nav>
+
+<main class="wrap">
+  <section id="v-notes">
+    <h2>Study notes</h2>
+    <p class="sub">Open a topic, read it, then tick it off as reviewed.</p>
+    <div class="row">
+      <input type="search" id="noteSearch" placeholder="Search the notes (e.g., phishing, Shapiro)">
+    </div>
+    <div class="row" style="margin-top:10px" id="noteFilter"></div>
+    <div class="progress-line" id="noteProg"></div>
+    <div class="notes" id="notes"></div>
+  </section>
+
+  <section id="v-cards" hidden>
+    <h2>Flashcards</h2>
+    <p class="sub">Tap the card to flip it. Cards you mark “Still learning” come back at the end of the round.</p>
+    <div class="row" id="cardFilter"></div>
+    <div class="deck">
+      <div class="row" style="justify-content:space-between"><span class="counter" id="cardCount"></span><button class="btn ghost" id="cardShuffle">Shuffle</button></div>
+      <div class="bar"><i id="cardBar"></i></div>
+      <div class="fc" id="fc" role="button" tabindex="0" aria-label="Flip card">
+        <div class="fc-in">
+          <div class="face front"><span id="fcTag"></span><div class="term" id="fcTerm"></div><div class="hint">Tap to see the meaning</div></div>
+          <div class="face back"><div class="def" id="fcDef"></div></div>
+        </div>
+      </div>
+      <div class="row" style="justify-content:center" id="cardBtns">
+        <button class="btn bad" id="cardAgain">Still learning</button>
+        <button class="btn good" id="cardKnow">Got it</button>
+      </div>
+      <div id="cardDone" hidden class="card" style="text-align:center">
+        <div class="score" id="cardDoneN"></div>
+        <p>You went through every card in this set.</p>
+        <button class="btn" id="cardRestart">Start again</button>
+      </div>
+    </div>
+  </section>
+
+  <section id="v-practice" hidden>
+    <h2>Practice test</h2>
+    <p class="sub">Questions from both modules, mixed. You see the right answer and why after each one.</p>
+    <div id="pSetup" class="card setup">
+      <div><label>Number of questions</label><div class="row" id="pLen"></div></div>
+      <div><label>Cover</label><div class="row" id="pScope"></div></div>
+      <div><button class="btn" id="pStart">Start practice</button></div>
+    </div>
+    <div id="pRun" class="card" hidden>
+      <div class="row" style="justify-content:space-between"><span class="counter" id="pCount"></span><span class="counter" id="pScoreLive"></span></div>
+      <div class="bar"><i id="pBar"></i></div>
+      <span id="pTag"></span>
+      <p class="q" id="pQ"></p>
+      <div class="opts" id="pOpts"></div>
+      <div id="pFb"></div>
+      <div class="row" style="justify-content:flex-end;margin-top:14px"><button class="btn" id="pNext" hidden>Next question</button></div>
+    </div>
+    <div id="pEnd" class="card" hidden>
+      <div class="eyebrow">Your score</div>
+      <div class="score" id="pFinal"></div>
+      <p id="pMsg"></p>
+      <div class="row"><button class="btn" id="pRetryMissed">Retry the ones I missed</button><button class="btn ghost" id="pNew">New practice set</button></div>
+      <div id="pMissList" style="margin-top:16px"></div>
+    </div>
+  </section>
+
+  <section id="v-match" hidden>
+    <h2>Who said it?</h2>
+    <p class="sub">Tap an author, then tap the idea that goes with them. Five pairs per round.</p>
+    <div class="row" style="justify-content:space-between"><span class="counter" id="mInfo"></span><button class="btn ghost" id="mNew">New round</button></div>
+    <div class="match"><div class="col" id="mA"></div><div class="col" id="mB"></div></div>
+  </section>
+</main>
+<footer class="wrap">Based on Module 7 (Media Literacy) and Module 8 (Financial Literacy).</footer>
+
+<script>
+/* ===================== CONTENT ===================== */
+const TOPICS = [
+{id:"m1",m:"M",t:"What is media?",h:`
+<p><b>Lynch (2018)</b> used the term <b>media</b> for all electronic or digital means and print or artistic visuals used to transmit messages through:</p>
+<ul><li><b>Reading</b>, which is print media</li><li><b>Seeing</b>, which is visual media</li><li><b>Hearing</b>, which is audio media</li><li><b>Changing and playing with</b>, which is interactive media</li><li>or some combination of these</li></ul>
+<p>Media can be part of active learning strategies such as group discussions or case studies <span class="cite">(Mateer &amp; Ghent)</span>.</p>
+<p>Information today comes through an interwoven system of media technologies, so reading many types of media is an essential 21st-century skill.</p>`},
+{id:"m2",m:"M",t:"Definitions of media literacy",h:`
+<ul>
+<li><b>Firestone (1993):</b> the ability to <b>access, analyze, evaluate, and create</b> media.</li>
+<li><b>Ontario Ministry of Education (1989):</b> helping students develop an <b>informed and critical understanding</b> of the nature of mass media, the techniques used, and their impact, including how media work, produce meaning, are organized, and construct reality. It also aims to give students the ability to create media products.</li>
+<li><b>Hobbs (1997):</b> the ability to <b>identify different types of media</b> from a wide array of sources and understand the messages they bring.</li>
+</ul>
+<p>Media-literate people understand the complex messages from TV, radio, the Internet, newspapers, magazines, books, billboards, video games, and music. That is why media literacy is part of the standards in language arts, social studies, health, science, and other subjects.</p>
+<div class="key"><b>The basis of media literacy:</b> every media message was created by someone for a reason. Understanding that reason is the starting point.</div>`},
+{id:"m3",m:"M",t:"10 concepts of media literacy",h:`
+<ol>
+<li>The ability to critically assess the <b>accuracy and validity</b> of information from mass media and to produce information in various forms.</li>
+<li>Also known as <b>Media Education</b>: realizing that all kinds of media show a <b>representation of reality</b>.</li>
+<li>The process of <b>accessing, decoding, evaluating, analyzing and creating</b> print and electronic media <span class="cite">(Aufderheide, 1993)</span>.</li>
+<li>The experience of <b>reading texts and designing hypertexts</b> through technology <span class="cite">(Hobbs, 2007)</span>.</li>
+<li>Understanding how to <b>use today's technology</b>: operating equipment, using software, and exploring the Internet.</li>
+<li>A <b>21st-century approach</b> to education that builds understanding of media's role in society and the skills of inquiry and self-expression that <b>democratic citizens</b> need.</li>
+<li>A response to the complexity of the ever-changing electronic environment and communication channels.</li>
+<li>Critical evaluation requires the ability to <b>analyze and disseminate</b> various features to others.</li>
+<li>Teaching <b>critical media management strategies</b>, including ICTs in schools and learning centers.</li>
+<li>Includes effective <b>Internet searching</b>, respect for <b>intellectual property and copyright</b>, and telling <b>truth from fake news</b>.</li>
+</ol>`},
+{id:"m4",m:"M",t:"Roles of media literacy",h:`
+<p>Creating media is easy, but it is hard to know who made something, why, and whether it is credible. Media literacy helps people to:</p>
+<ol>
+<li><b>Learn to think critically.</b> Decide whether messages make sense before being convinced.</li>
+<li><b>Become a smart consumer of products and information.</b> Judge whether something is credible, especially advertising, before being persuaded to buy.</li>
+<li><b>Recognize point of view.</b> Identifying the author's perspective helps you appreciate different ideas.</li>
+<li><b>Create media responsibly.</b> Recognize your own ideas and express them appropriately.</li>
+<li><b>Identify the role of media in our culture.</b> Media shape how we understand the world and how we act or think.</li>
+<li><b>Understand the author's goal.</b> Recognizing the kind of influence something has leads to better choices.</li>
+</ol><p class="cite">Common Sense Media, n.d.</p>`},
+{id:"m5",m:"M",t:"Social media and its types",h:`
+<p><b>Social media</b> describes websites that connect people and involve <b>user-generated content</b>, the hallmark of a social media site. It is sometimes called <b>Web 2.0</b> and is a big opportunity to reach a target audience and increase online sales <span class="cite">(Go, 2019)</span>.</p>
+<ol>
+<li><b>Social media news websites:</b> users submit links to web content they find interesting (Digg, Reddit, StumbleUpon).</li>
+<li><b>Social media networking websites:</b> users upload a personal profile and connect with others (LinkedIn for professionals, Facebook for everyone). These can lead to partnerships, career opportunities, and research.</li>
+<li><b>Photo and video sharing:</b> photos through Facebook, Instagram, and Pinterest, and videos through YouTube.</li>
+<li><b>Microblogging and blogging websites:</b> sometimes called <b>"presence apps"</b>. Users post very short messages. Twitter limits posts to <b>280 characters</b>. Snapchat is video-based.</li>
+<li><b>Social media review websites:</b> show how reviews can make or break a company (Amazon, eBay).</li>
+</ol>`},
+{id:"m6",m:"M",t:"Media and Information Literacy (MIL)",h:`
+<p><b>Moscow Declaration on MIL (2012):</b> MIL is a combination of <b>knowledge, attitudes, skills, and practices</b> needed to access, analyze, evaluate, use, produce, and communicate information and knowledge in creative, legal, and ethical ways that respect human rights.</p>
+<p><b>UNESCO (2016):</b> the set of competencies to <b>search, critically evaluate, use and contribute</b> information and media content wisely. It also covers knowing your rights online, understanding ethical issues, refraining from <b>cyberbullying</b>, and using media and ICT to promote equality, free expression, intercultural and interreligious dialogue, and peace.</p>
+<div class="key"><b>Aspects of MIL</b>
+<ul>
+<li><b>Reineck &amp; Lublinski (2015):</b> MIL is the optimal outcome of media, information, and ICT education along <b>three aspects</b>: technical skills, critical attitudes, and facts about media and ICT.</li>
+<li><b>UNESCO (2011)</b> MIL curriculum: "accessing information effectively and efficiently."</li>
+<li><b>Baacke (1996):</b> added <b>compositional skills</b>, meaning creating new kinds of media content, encouraging self-determination, and increasing chances to participate.</li>
+<li><b>Performative aspect:</b> the competence <b>to do</b>, rather than just to know.</li>
+<li><b>Moeller (2009):</b> summarized MIL from the <b>user perspective</b>, meaning identifying news and understanding media's role in reshaping global issues.</li>
+<li><b>Groeben (2002):</b> stressed knowledge of the media's <b>inner workings</b> (contexts, routines, contents) and its <b>effects</b>.</li>
+</ul></div>`},
+{id:"m7",m:"M",t:"Seven dimensions of MIL",h:`
+<p>Identified by <b>Shapiro &amp; Hughes (1996)</b>:</p>
+<ol>
+<li><b>Tool literacy:</b> using practical and conceptual IT tools (software, hardware, multimedia) relevant to education, work, and professional life.</li>
+<li><b>Resource literacy:</b> understanding the form, format, location, and access methods of information resources.</li>
+<li><b>Social-structural literacy:</b> knowing how information is socially situated and produced, and how it fits into the life of groups, institutions, and social networks.</li>
+<li><b>Research literacy:</b> using IT-based tools for research and scholarship, such as software for quantitative and qualitative analysis and simulation.</li>
+<li><b>Publishing literacy:</b> formatting and publishing research and ideas electronically in text and multimedia forms.</li>
+<li><b>Emerging technology literacy:</b> adapting to, understanding, evaluating, and using emerging innovations in IT.</li>
+<li><b>Critical literacy:</b> critically evaluating the intellectual, human, and social strengths and weaknesses, potentials and limits, and benefits and costs of information technologies.</li>
+</ol>`},
+{id:"m8",m:"M",t:"Advantages and disadvantages of media",h:`
+<p>Media are powerful tools of communication with both positive and negative effects.</p>
+<div class="key"><b>Advantages</b><ol>
+<li>Educate people on health, environmental conservation, and more.</li><li>Deliver the latest world news quickly, regardless of distance.</li><li>Let people show hidden talents in multimedia, visual arts, comedy, acting, dancing, and singing.</li><li>Increase knowledge through quiz programs and educational shows.</li><li>Make information convenient to access on mobile phones.</li><li>Promote products and increase sales.</li><li>Provide entertainment.</li><li>Television duplicates information electronically, which <b>reduces the cost of mass education</b>.</li><li>Spread diverse cultures and cultural practices.</li><li>Help people around the world understand each other and respect differences.</li></ol></div>
+<div class="key"><b>Disadvantages</b><ol>
+<li>Lead to <b>individualism</b>: too much Internet and TV reduces socializing.</li><li>Some content is not suitable for children.</li><li>A newspaper is <b>geographically selective</b>.</li><li>More ads on TV and radio make them less attractive.</li><li>The Internet opens the way for scams, fraud, and hacking.</li><li>Media can be addictive and lower productivity.</li><li>Health hazards such as radiation effects, poor eyesight, and hearing defects.</li><li>May encourage drug and alcohol use.</li><li>Imitating stunts can cause injury.</li><li>Anonymous accounts can ruin reputations through scandals, false accusations, and rumors.</li></ol></div>`},
+{id:"m9",m:"M",t:"Integrating media literacy in the curriculum",h:`
+<p>Media literacy is part of the curriculum but faces challenges: <b>limited access to equipment</b>, teachers' <b>lack of confidence</b> with the material, and seeing media education as <b>just an accessory</b>.</p>
+<p><b>Lynch (2018): six ways to integrate media literacy</b></p>
+<ol>
+<li><b>Teach students to evaluate media:</b> media change depending on who made them, the intended audience, and the source's biases.</li>
+<li><b>Show students where to find digital resources and databases:</b> give reliable, safe, trustworthy sources.</li>
+<li><b>Compare and contrast various media sources.</b></li>
+<li><b>Discuss how the media edits and alters:</b> show examples of altered photos or stories so students don't take things at face value.</li>
+<li><b>Examine the "truth" in advertisements:</b> what is being sold, and what promises are used to convince buyers.</li>
+<li><b>Have students create media:</b> presentations, videos, or websites suited to their level.</li>
+</ol>`},
+{id:"m10",m:"M",t:"Media skills and teaching approaches",h:`
+<p><b>Hobbs &amp; Frost (1994): media skills students can develop</b></p>
+<ol>
+<li>Reflect on and analyze their own <b>media consumption habits</b>.</li>
+<li>Identify the <b>author, purpose, and point of view</b> in films, commercials, TV and radio programs, editorials, and ads.</li>
+<li>Identify the <b>production techniques</b> used to communicate opinions and shape audience response.</li>
+<li>Evaluate how media represent the world by examining <b>patterns, stereotyping, emphasis, and omission</b>.</li>
+<li>Appreciate the <b>economic underpinnings</b> of media, telling apart media that sell audiences to advertisers from those that don't.</li>
+<li>Understand how <b>media economics shapes message content</b>.</li>
+<li>Gain experience using mass media tools for <b>personal expression</b> and for <b>social and political advocacy</b>.</li>
+</ol>
+<p><b>Kellner &amp; Share (2007): three approaches to teaching media literacy</b></p>
+<ol>
+<li><b>Media Arts Education Approach:</b> values the <b>aesthetic qualities</b> of media and the arts, and uses creativity for self-expression.</li>
+<li><b>Media Literacy Movement Approach:</b> expands literacy to include <b>popular culture</b> and multiple media forms, while staying within a <b>print literacy tradition</b>.</li>
+<li><b>Critical Media Literacy Approach:</b> focuses on <b>ideology critique</b> and the politics of representation of gender, race, class, and sexuality. It also includes alternative media production and looks at social context, control, resistance, and pleasure.</li>
+</ol>
+<div class="key"><b>Media across disciplines:</b> media education can be integrated into every subject using <b>PPPP: Purpose, Process, Performance, Product</b>.</div>`},
+{id:"m11",m:"M",t:"Assessing media literacy work",h:`
+<p>Students need regular feedback on media work. Some teachers find media assessment harder because of a lack of technical skills, and because media education is about <b>finding the right questions to ask</b>, not learning set answers.</p>
+<p><b>Canada's Center for Digital and Media Literacy</b> prescribes two steps: (1) <b>use a rubric</b> to assess student work, and (2) <b>frame the rubric's expectations in terms of the key concepts</b> of media literacy.</p>
+<p><b>Three ways to evaluate media literacy work:</b></p>
+<ol>
+<li>How well the student <b>understands the key concepts</b> and the lesson's ideas.</li>
+<li>The <b>depth and quality of the student's inquiry and analysis</b>.</li>
+<li>How well the student <b>applies technical skills</b> for the medium studied, the medium used, or both.</li>
+</ol>
+<p>Every media activity should end with a <b>reflection</b> on how the media shaped students' thinking, decisions, choices, values, and relationships.</p>`},
+{id:"m12",m:"M",t:"5 key concepts of media literacy",h:`
+<p>These key concepts act as <b>filters</b> that any media text has to pass through before we can respond to it critically.</p>
+<ol>
+<li><b>Media are constructions.</b> People make conscious and unconscious choices about what to include and how to present it.</li>
+<li><b>The audience negotiates meaning.</b> Meaning is a collaboration between producers and audience.</li>
+<li><b>Media have commercial implications.</b> Most media production is a business owned by corporations that influence content and distribution.</li>
+<li><b>Media have social and political implications.</b> Media carry ideological messages about values, power, and authority.</li>
+<li><b>Each medium has a unique aesthetic form.</b> Content depends on the medium's technical, commercial, and storytelling demands, and on its tropes, clichés, codes, and conventions.</li>
+</ol>`},
+
+{id:"f1",m:"F",t:"What is financial literacy?",h:`
+<p>Teachers face issues like debt, fraud, emergencies, calamities, and an unprepared retirement. That is why financial literacy shows up in faculty development, seminars, research, and the curriculum.</p>
+<ul>
+<li>A <b>core life skill</b> for taking charge of your own finances: budget, choices, managing risk, saving, credit, and transactions.</li>
+<li>The ability to <b>make informed judgments and effective decisions</b> about the use and management of money.</li>
+<li>The capability to <b>handle assets, especially cash</b>, efficiently while understanding how money works in the real world.</li>
+</ul>
+<p><b>Low financial literacy</b> is linked to lower standards of living, poorer psychological and physical well-being, and greater reliance on government support. Practiced well, it strengthens saving, eliminates maxed-out credit cards, and helps people pay debts on time.</p>
+<div class="key"><b>Start young.</b> National surveys show <b>young adults</b> have the lowest financial literacy. <b>Akdag (2013)</b>: it is best introduced as early as <b>preschool</b>. <b>OECD (2005)</b>: financial education is a <b>long-term process</b>, and starting early builds responsible behavior at every stage of schooling.</div>`},
+{id:"f2",m:"F",t:"Financial plan",h:`
+<p>Start planning the moment you receive your <b>first salary</b>, including incentives, bonuses, and extra pay.</p>
+<p><b>Kagan (2019):</b> a financial plan is a <b>comprehensive statement of a person's long-term objectives</b> for security and well-being, with a detailed savings and investing strategy. It begins with an evaluation of your current finances and future expectations.</p>
+<p><b>Steps in creating a financial plan</b></p>
+<ol>
+<li><b>Calculating net worth:</b> the amount by which assets exceed liabilities.
+  <div class="key"><b>Net worth = total assets − total liabilities</b><br>Assets: cash, property, investments, savings, jewelry, wealth.<br>Liabilities: credit card debt, loans, mortgage.</div></li>
+<li><b>Determining cash flow:</b> knowing where money goes every month, how much goes to necessities, and how much to savings and investment.</li>
+<li><b>Considering the priorities:</b> clearly defined goals, such as (1) a retirement strategy, (2) a risk management plan (life, disability, liability, property, and catastrophic coverage), (3) a long-term investment plan based on your objectives and risk tolerance, and (4) a tax reduction strategy allowed by the tax code.</li>
+</ol>`},
+{id:"f3",m:"F",t:"Five financial improvement strategies",h:`
+<p>Suggested by <b>Investopedia</b> as a journey to financial literacy:</p>
+<ol>
+<li><b>Identify your starting point.</b> Calculate your net worth to see where you stand and track your progress.</li>
+<li><b>Set your priorities.</b> List needs and wants. <b>Needs</b> are what you must have to survive: food, shelter, clothing, healthcare, transportation. <b>Wants</b> are nice to have but not necessary.</li>
+<li><b>Document your spending.</b> A budget or personal spending plan shows what comes in and what goes out.</li>
+<li><b>Lay down your debt.</b> Debt costs interest and fees and keeps you from reaching your goals.</li>
+<li><b>Secure your financial future.</b> Retirement can come unplanned through job loss, illness, or caring for a loved one, so learn your retirement options.</li>
+</ol>`},
+{id:"f4",m:"F",t:"Financial goal planning and setting",h:`
+<p><b>Financial goals</b> are targets driven by future needs, such as a comfortable retirement, sending children to college, or buying a home. Set them <b>before investing</b>.</p>
+<ol type="A">
+<li><b>Time horizon:</b> when the money will be needed. A longer horizon allows riskier and potentially more profitable investments.</li>
+<li><b>Risk tolerance:</b> <b>risk-averse</b> investors give up a chance of large gain to avoid a large loss. <b>Risk seekers</b> accept a chance of large loss for a chance of large gain. Time horizon affects risk tolerance.</li>
+<li><b>Liquidity needs:</b> how quickly an investment can be <b>turned into cash</b>.</li>
+<li><b>Investment goals:</b>
+  <ul><li><b>Growth</b>, also called <b>capital appreciation</b>: the investment increases in value.</li>
+  <li><b>Income:</b> periodic payments of <b>interest or dividends</b> that can be spent or reinvested.</li>
+  <li><b>Stability</b>, also called <b>capital preservation</b> or protection of principal: the focus is on never losing value, rather than on growth.</li></ul></li>
+</ol>`},
+{id:"f5",m:"F",t:"Budget and budgeting",h:`
+<p>A <b>budget</b> is an <b>estimate of revenue and expenses</b> over a set future period, usually reviewed periodically. <b>Budgeting</b> is the <b>process of creating a plan to spend money</b>, so you know in advance whether you'll have enough. Budgeting keeps you out of debt.</p>
+<p><b>Seven steps to good budgeting</b></p>
+<ol>
+<li><b>Set realistic goals.</b></li>
+<li><b>Identify income and expenses.</b> Track every single cent.</li>
+<li><b>Separate needs from wants.</b></li>
+<li><b>Design your budget.</b> Don't spend more than you earn.</li>
+<li><b>Put your plan into action.</b> Match spending with income, and don't rely on credit for living expenses.</li>
+<li><b>Plan for seasonal expenses.</b> Set money aside for unplanned costs.</li>
+<li><b>Look ahead.</b> A stable budget can take a month or two, so ask for help if needed.</li>
+</ol>`},
+{id:"f6",m:"F",t:"Spending plan",h:`
+<p>If budget goals are a financial <b>wish list</b>, a spending plan is the <b>action plan</b> that makes them real.</p>
+<ol>
+<li><b>Start by listing your goals.</b> Forecast and discuss future needs and dreams with the family.</li>
+<li><b>Divide your goals by how long they will take.</b>
+  <div class="key"><b>Short-term:</b> less than a year (immediate needs and wants)<br><b>Medium-term:</b> one to five years<br><b>Long-term:</b> more than five years (e.g., retirement)</div></li>
+<li><b>Estimate the cost of each goal.</b> The costlier the goal, the more other goals you must give up.</li>
+<li><b>Project future cost.</b> Inflation matters little for short-term goals but is a <b>big factor for medium- and long-term goals</b>.</li>
+<li><b>Calculate how much to set aside each period.</b></li>
+<li><b>Prioritize your goals.</b> This guides decision-making.</li>
+<li><b>Create a schedule for meeting your goals:</b> priority, amount, when it's needed, and installments.</li>
+</ol>`},
+{id:"f7",m:"F",t:"Investment and investing",h:`
+<p>When you've saved more than you expect to need, consider investing to earn more than a savings account pays. Consider <b>four aspects</b>:</p>
+<ol>
+<li>How long will you invest the money? <b>Time horizon</b></li>
+<li>How much do you expect it to earn each year? <b>Expectation of return</b></li>
+<li>How much are you willing to lose in the short term to earn more in the long term? <b>Risk tolerance</b></li>
+<li>What types of investment interest you? <b>Investment type</b></li>
+</ol>`},
+{id:"f8",m:"F",t:"Savings",h:`
+<p>To get out of debt, set money aside in a savings account regularly. Savings let you buy needs and wants <b>without borrowing</b>.</p>
+<p><b>Emergency savings fund:</b> start early. Put work bonuses, income tax refunds, or side-job earnings into it.</p>
+<p><b>10 reasons to save money</b></p>
+<ol>
+<li>To become <b>financially independent</b>, without depending on a paycheck.</li><li>To <b>save on everything you buy</b>, such as sales, without credit card interest.</li><li>To buy a <b>home or a car</b>, in full or as a down payment.</li><li>To <b>prepare for the future</b>.</li><li>To <b>get out of debt</b>.</li><li>To cover <b>annual expenses</b> in advance.</li><li>To settle <b>unforeseen expenses</b>.</li><li>To respond to <b>emergencies</b>.</li><li>To soften the blow of <b>losing your job or getting hurt</b>.</li><li>To have a <b>good life</b>, with quality and no worries.</li>
+</ol>`},
+{id:"f9",m:"F",t:"Common financial scams",h:`
+<ol type="A">
+<li><b>Phishing:</b> an <b>email</b> that appears to come from a bank asks you to click a link and update your account. Never click. Contact the company through its official channels instead.</li>
+<li><b>Social media scams:</b> scammers study your <b>travel habits</b> and post fake <b>charity donation</b> links. Be careful what you post, especially vacation plans that show your house is empty.</li>
+<li><b>Phone scams:</b> callers pose as a <b>government agency</b> (e.g., the BIR or police) and use scare tactics. <b>Government agencies will never text or call to ask for money.</b></li>
+<li><b>Stolen credit card numbers:</b> stolen through hacking, phishing, and <b>skimming devices</b> attached to ATMs or gas pumps. Check card readers before using them.</li>
+<li><b>Identity theft:</b> with your Social Security number, birth date, and other details, scammers can <b>open new accounts in your name</b>. Shred sensitive papers.</li>
+</ol>
+<p>Monitoring your online or mobile banking daily helps you spot fraudulent charges quickly.</p>`},
+{id:"f10",m:"F",t:"10 tips to avoid financial scams",h:`
+<p>Fraud gets worse every year, and new technology gives fraudsters an edge <span class="cite">(Bell, 2019)</span>.</p>
+<ol>
+<li><b>Never wire money to a stranger.</b></li>
+<li><b>Don't give out financial information</b> by phone, text, or email to anyone you don't know.</li>
+<li><b>Never click hyperlinks in emails</b> from strangers asking for financial details.</li>
+<li><b>Use difficult passwords:</b> at least <b>8 characters</b> with upper- and lowercase letters, numbers, and symbols, and a different one for every site.</li>
+<li><b>Never give your Social Security number</b> to an email or website that asks for it.</li>
+<li><b>Install antivirus and spyware protection</b>, and turn on auto-update.</li>
+<li><b>Don't shop with unfamiliar online retailers</b> until you've checked they're legit.</li>
+<li><b>Don't download software from pop-up windows</b>, which may install malware.</li>
+<li><b>Make sure websites are safe:</b> check privacy rules and the <b>lock icon</b> left of the web address, which means the site uses encryption.</li>
+<li><b>Donate to known charities only.</b> Some scammers create fake charities.</li>
+</ol>`},
+{id:"f11",m:"F",t:"Financial scams among students",h:`
+<ol type="A">
+<li><b>Fake scholarships:</b> check the source first. <b>Never apply for a scholarship that asks for money in return.</b></li>
+<li><b>Diploma mills:</b> schools that sell <b>fake degrees and diplomas for a fee</b>. Confirm with government education agencies that a school is recognized and accredited.</li>
+<li><b>Online book scams:</b> cheap textbook "deals" used to steal card information. Buy only from credible sites.</li>
+<li><b>Credit card scams:</b> scammers pose as card companies on campus. Apply at a local bank or credit union, and check statements for charges you don't recognize.</li>
+</ol>`},
+{id:"f12",m:"F",t:"Insurance and taxes",h:`
+<p><b>Insurance</b> is a contract, called a <b>policy</b>, in which the insurer agrees to cover financial loss from specific events. In exchange, the policyholder pays <b>premiums</b>. Insurance is the best form of <b>risk management against uncertain loss</b>.</p>
+<p>Types include life, health, motor, property, and business insurance. Paid premiums can also bring a <b>tax benefit claim</b>.</p>
+<ol>
+<li><b>Employer-sponsored insurance:</b> a company with <b>50 or more full-time employees</b> must offer employee-only insurance. Don't pay more than <b>9.66% of household income</b> in premiums.</li>
+<li><b>Marketplace plans:</b> based on where you live and your income, in three tiers. <b>Bronze</b> has the least coverage and lowest premiums, then <b>silver</b>, then <b>gold</b>, which has the most coverage at the highest price.</li>
+</ol>`},
+{id:"f13",m:"F",t:"Life insurance",h:`
+<p><b>Life insurance</b> pays <b>beneficiaries</b> when the policyholder dies. This payout is called the <b>death benefit</b>. Depending on the policy, covered events can also include retirement, major injuries, or critical illness.</p>
+<p><b>Risk categories</b> (from best to worst rating)</p>
+<ol>
+<li><b>Preferred Plus:</b> excellent health, normal weight, no smoking, no chronic illness, and no family history of life-threatening disease.</li>
+<li><b>Preferred:</b> excellent health, with minor cholesterol or blood pressure issues <b>under control</b>.</li>
+<li><b>Standard Plus:</b> very good health, but factors like high blood pressure or being overweight prevent a better rating.</li>
+<li><b>Standard:</b> where <b>most policyholders</b> belong. Healthy, normal life expectancy, maybe a family history or minor issues.</li>
+<li><b>Substandard:</b> serious issues such as diabetes or heart disease, placed on a <b>table rating</b> system.</li>
+<li><b>Smokers:</b> guaranteed to pay more. <b>Age</b> also matters, so older people pay higher premiums.</li>
+</ol>
+<p><b>Benefits of life insurance:</b> pays medical and funeral costs, gives financial support (especially if the breadwinner dies), funds financial goals, serves as retirement security, and covers taxes and debt.</p>`},
+{id:"f14",m:"F",t:"Types of life insurance",h:`
+<div class="tbl"><table>
+<tr><th>Type</th><th>Characteristic</th><th>Advantage</th><th>Disadvantage</th></tr>
+<tr><td><b>Endowment</b></td><td>Pays a <b>lump sum</b> after a set time or upon death. Premiums are paid for a set number of years or until a certain age.</td><td>Saves for specific purposes, guarantees returns at maturity, and gives some coverage.</td><td>Higher premiums than other types. Not the best for full life protection.</td></tr>
+<tr><td><b>Term</b></td><td>The <b>simplest</b> form. Beneficiaries are paid if the policyholder dies within the term.</td><td><b>Low premiums</b> and easy to understand. Good for people who can't afford whole life or endowment.</td><td><b>No benefit if you outlive the term.</b> Premiums usually rise on renewal.</td></tr>
+<tr><td><b>Whole Life</b></td><td>Covers your <b>entire life or until age 100</b>. Works as both protection and savings, since part of the premium builds <b>cash value</b>.</td><td>Permanent protection, flexible payments, fixed premiums, and "living" benefits.</td><td>Higher premiums. Hard to understand.</td></tr>
+<tr><td><b>Variable Universal Life (VUL)</b></td><td><b>Life protection plus investment</b> in one. Part of the premium is invested, and earnings depend on how the investments perform.</td><td>Dual purpose, no maturity age, and the death benefit isn't limited to face value. Funds can be withdrawn in emergencies (<b>liquidity</b>).</td><td>Cash values and dividends are <b>not guaranteed</b>. The benefit depends on investment performance, and there are various fees.</td></tr>
+</table></div>`},
+{id:"f15",m:"F",t:"Financial stability",h:`
+<p>Being financially stable means being confident about your finances: paying bills without worry, being debt-free, and having savings and an emergency fund. <b>Silva (2019):</b> financial stability is <b>not about being rich but a mindset</b>, a life without worrying about the next bill.</p>
+<p><b>Babauta (2007): 10 habits toward financial stability</b></p>
+<ol>
+<li><b>Make savings "automagical"</b> with automatic transfers to savings.</li><li><b>Control impulsive spending</b> on eating out and online shopping.</li><li><b>Evaluate your expenses and live frugally.</b></li><li><b>Invest in your future</b>, preparing for retirement while young.</li><li><b>Keep your family secure</b> with an emergency fund.</li><li><b>Eliminate and avoid debt.</b></li><li><b>Use the envelope system:</b> each payday, put three set amounts in three envelopes.</li><li><b>Pay bills immediately</b>, ideally by automatic deduction.</li><li><b>Read about personal finances.</b></li><li><b>Look to grow your net worth.</b></li>
+</ol>
+<p><b>Rose (2019): signs of a financially stable person</b> (examples from the list of 20)</p>
+<ul>
+<li>You never overdraw your account and don't lose sleep over money.</li>
+<li>You use credit cards for convenience and rewards, never out of necessity.</li>
+<li>You pay bills ahead of time and consistently <b>live beneath your means</b>.</li>
+<li>You're a natural saver, you contribute more to retirement, and your net worth grows every year.</li>
+<li>You could <b>survive for months without a paycheck</b>.</li>
+<li>You feel in control of your finances and are never dominated by them.</li>
+</ul>`},
+{id:"f16",m:"F",t:"Integrating financial literacy into the curriculum",h:`
+<ul>
+<li>Financial education should be part of a <b>collaborative national strategy</b> involving the education system and profession.</li>
+<li><b>Barry (2013):</b> financial literacy has a wide effect beyond the family, especially in <b>school</b>, so administrators and professors should build a curriculum around it.</li>
+<li>There should be a <b>learning framework</b> with goals, outcomes, content, teaching approaches, resources, and evaluation. Content should cover <b>knowledge, skills, attitudes, and values</b>. A <b>sustainable source of funding</b> should be identified at the start.</li>
+<li>It can be integrated into <b>mathematics, economics, social studies, technology and home economics, and values education</b>, giving "real-life" contexts.</li>
+<li>Teachers should be <b>trained and resourced</b>, and student progress should be assessed through high-impact methods.</li>
+</ul>`}
+];
+
+const CARDS = [
+["M","Media (Lynch, 2018)","All electronic or digital means and print or artistic visuals used to transmit messages through reading, seeing, hearing, or interacting."],
+["M","Print / visual / audio / interactive media","Media you read, see, hear, or change and play with."],
+["M","Media literacy (Firestone, 1993)","The ability to access, analyze, evaluate, and create media."],
+["M","Media literacy (Hobbs, 1997)","The ability to identify different types of media from a wide array of sources and understand the messages they bring."],
+["M","Media Education","Another name for media literacy: realizing that all kinds of media show a representation of reality."],
+["M","Basis of media literacy","Understanding the reason why someone created a media message."],
+["M","Social media","Websites that connect people and involve user-generated content. Also called Web 2.0."],
+["M","Social media news websites","Users submit links to content they find interesting, e.g., Digg, Reddit, StumbleUpon."],
+["M","Social media networking websites","Users upload personal profiles and connect with others, e.g., LinkedIn and Facebook."],
+["M","Microblogging (\"presence apps\")","Services for very short posts, e.g., Twitter (280 characters) and Snapchat."],
+["M","Social media review websites","Show how reviews can make or break a company, e.g., Amazon and eBay."],
+["M","MIL (Moscow Declaration, 2012)","A combination of knowledge, attitudes, skills, and practices to access, analyze, evaluate, use, produce, and communicate information creatively, legally, and ethically."],
+["M","Three aspects of MIL (Reineck & Lublinski, 2015)","Technical skills, critical attitudes, and facts about media and ICT."],
+["M","Compositional skills (Baacke, 1996)","Creating new kinds of media content, encouraging self-determination and participation."],
+["M","Performative aspect of MIL","The competence to do, rather than just to know."],
+["M","Tool literacy","Using practical and conceptual IT tools such as software, hardware, and multimedia."],
+["M","Resource literacy","Understanding the form, format, location, and access methods of information resources."],
+["M","Social-structural literacy","Knowing how information is socially situated and produced."],
+["M","Research literacy","Using IT-based tools for research, e.g., software for quantitative and qualitative analysis."],
+["M","Publishing literacy","Formatting and publishing research and ideas electronically."],
+["M","Emerging technology literacy","Adapting to, understanding, evaluating, and using new IT innovations."],
+["M","Critical literacy","Critically evaluating the strengths, weaknesses, benefits, and costs of information technologies."],
+["M","Media Arts Education Approach","Values the aesthetic qualities of media and uses creativity for self-expression."],
+["M","Media Literacy Movement Approach","Expands literacy to popular culture and multiple media forms within a print literacy tradition."],
+["M","Critical Media Literacy Approach","Ideology critique and the politics of representation of gender, race, class, and sexuality."],
+["M","PPPP","Purpose, Process, Performance, Product: a guide for using media across subjects."],
+["M","Media are constructions","People make conscious and unconscious choices about what to include and how to present it."],
+["M","The audience negotiates meaning","The meaning of a media product is a collaboration between producers and audience."],
+["M","Media have commercial implications","Most media are businesses owned by corporations that influence content and distribution."],
+["M","Each medium has a unique aesthetic form","Content depends on the medium's technical, commercial, and storytelling demands."],
+["F","Financial literacy","The ability to make informed judgments and effective decisions about the use and management of money."],
+["F","Financial plan (Kagan, 2019)","A comprehensive statement of a person's long-term objectives for security and well-being, with a savings and investing strategy."],
+["F","Net worth","Total assets minus total liabilities."],
+["F","Assets","Cash, property, investments, savings, jewelry, and wealth."],
+["F","Liabilities","Credit card debt, loans, and mortgage."],
+["F","Cash flow","Where your money goes every month."],
+["F","Needs vs. wants","Needs are required to survive (food, shelter, clothing, healthcare, transportation). Wants are nice to have but not necessary."],
+["F","Time horizon","When the money will be needed. A longer horizon allows riskier, potentially more profitable investments."],
+["F","Risk averse vs. risk seeker","Risk-averse people give up a big gain to avoid a big loss. Risk seekers accept a big loss for a chance at a big gain."],
+["F","Liquidity","How quickly an investment can be converted into cash."],
+["F","Growth (capital appreciation)","An increase in the value of an investment."],
+["F","Income (investment goal)","Periodic payments of interest or dividends that can be spent or reinvested."],
+["F","Stability (capital preservation)","Protecting the principal so the investment never loses value."],
+["F","Budget","An estimate of revenue and expenses over a specified future period."],
+["F","Budgeting","The process of creating a plan to spend money."],
+["F","Short / medium / long-term goals","Less than 1 year, 1 to 5 years, and more than 5 years."],
+["F","Emergency savings fund","Money set aside for emergencies, built from bonuses, tax refunds, or side-job earnings."],
+["F","Phishing","A fake email that appears to be from a bank and asks you to click a link to update your account."],
+["F","Skimming device","A small card reader attached to ATMs or gas pumps that steals card data."],
+["F","Identity theft","Using your personal information to open accounts in your name without your knowledge."],
+["F","Diploma mill","A school that sells fake degrees and diplomas for a fee."],
+["F","Insurance","A contract (policy) in which the insurer covers specific losses in exchange for premiums."],
+["F","Premium","The amount the policyholder pays the insurance company."],
+["F","Death benefit","The life insurance payout to beneficiaries when the policyholder dies."],
+["F","Endowment insurance","Pays a lump sum after a set time or upon death. Premiums are higher."],
+["F","Term insurance","The simplest and cheapest type. It pays nothing if you outlive the term."],
+["F","Whole life insurance","Covers your entire life or until age 100 and builds cash value."],
+["F","Variable Universal Life (VUL)","Life protection plus investment. Returns are not guaranteed."],
+["F","Envelope system","Each payday, put three set amounts into three separate envelopes to track spending."],
+["F","Financial stability (Silva, 2019)","Not about being rich but a mindset: life without worrying about the next bill."]
+];
+
+// q, [correct, wrong, wrong, wrong], explanation, topic
+const QS = [
+["Who defined media literacy as the ability to access, analyze, evaluate, and create media?",["Firestone (1993)","Hobbs (1997)","Lynch (2018)","Aufderheide (1993)"],"Firestone (1993) gave the four-skill definition: access, analyze, evaluate, create.","m2"],
+["According to Lynch (2018), media that people “change and play with” are called:",["Interactive media","Print media","Visual media","Audio media"],"Reading = print, seeing = visual, hearing = audio, changing and playing with = interactive.","m1"],
+["What does the module call the basis of media literacy?",["Understanding the reason someone created a media message","Memorizing the types of media","Knowing how to operate equipment","Counting how many people shared a post"],"Every media message was made by someone for a reason, and understanding that reason is the basis of media literacy.","m2"],
+["Hobbs (1997) described media literacy as the ability to:",["Identify different types of media from a wide array of sources and understand their messages","Design hypertexts through technology","Operate equipment and software","Write news articles for newspapers"],"Hobbs (1997) focused on identifying media types and understanding their messages. Designing hypertexts is Hobbs (2007).","m2"],
+["Which concept describes media literacy as “Media Education”?",["The ability to realize that all kinds of media show a representation of reality","The ability to use difficult passwords","The ability to publish research electronically","The ability to sell products online"],"Concept 2: media literacy, also known as Media Education, is realizing that all media represent reality rather than being reality itself.","m3"],
+["“Accessing, decoding, evaluating, analyzing and creating both print and electronic media” is from:",["Aufderheide (1993)","Lynch (2018)","Go (2019)","Kagan (2019)"],"This process definition of media literacy comes from Aufderheide (1993).","m3"],
+["Identifying an author's perspective to appreciate different ideas is which role of media literacy?",["Recognize point of view","Understand the author's goal","Learn to think critically","Create media responsibly"],"Recognizing point of view means identifying the author's perspective.","m4"],
+["Judging whether advertising is credible before being persuaded to buy is which role?",["Become a smart consumer of products and information","Identify the role of media in our culture","Create media responsibly","Recognize point of view"],"Being a smart consumer means checking credibility, especially of ads, before buying.","m4"],
+["Reddit, Digg, and StumbleUpon are examples of:",["Social media news websites","Social media review websites","Microblogging websites","Social networking websites"],"On social media news websites, users submit links to content they find interesting.","m5"],
+["LinkedIn and Facebook are examples of:",["Social media networking websites","Social media news websites","Photo and video sharing only","Review websites"],"Networking sites let users upload a personal profile and connect with others.","m5"],
+["Which type of social media is sometimes called “presence apps”?",["Microblogging and blogging websites","Social media review websites","Social media news websites","Photo sharing websites"],"Microblogging services like Twitter (280 characters) are sometimes called presence apps.","m5"],
+["Amazon and eBay are examples of social media:",["Review websites","News websites","Networking websites","Microblogging websites"],"Review websites show how reviews can make or break a company.","m5"],
+["What is the hallmark of a social media site?",["User-generated content","Paid advertisements","Printed newspapers","Government ownership"],"Go (2019) says user-generated content is the hallmark of social media, which is also called Web 2.0.","m5"],
+["MIL as “a combination of knowledge, attitudes, skills, and practices” comes from:",["The Moscow Declaration on MIL (2012)","UNESCO (2016)","Shapiro & Hughes (1996)","Firestone (1993)"],"The Moscow Declaration on Media and Information Literacy (2012) gave this definition.","m6"],
+["According to Reineck & Lublinski (2015), MIL develops along which three aspects?",["Technical skills, critical attitudes, and facts about media and ICT","Reading, writing, and arithmetic","Purpose, process, and product","Growth, income, and stability"],"These three aspects come from media, information, and ICT education.","m6"],
+["Baacke (1996) added which skills to his media competence model?",["Compositional skills","Budgeting skills","Driving skills","Proofreading skills"],"Compositional skills mean creating new kinds of media content and increasing participation.","m6"],
+["The performative aspect of MIL refers to:",["The competence to do rather than just to know","Performing on stage","Memorizing definitions","Watching performances online"],"MIL includes the competence to act, not just knowledge.","m6"],
+["Groeben (2002) stressed knowledge of media's:",["Inner workings (contexts, routines, contents) and effects","Prices and discounts","Hardware specifications","Celebrity endorsements"],"Groeben (2002) focused on how media work inside and the effects they have.","m6"],
+["Who identified the seven dimensions of MIL?",["Shapiro & Hughes (1996)","Kellner & Share (2007)","Hobbs & Frost (1994)","Reineck & Lublinski (2015)"],"Shapiro and Hughes (1996) listed tool, resource, social-structural, research, publishing, emerging technology, and critical literacy.","m7"],
+["Understanding the form, format, location, and access methods of information resources is:",["Resource literacy","Tool literacy","Research literacy","Publishing literacy"],"Resource literacy is about where and how information resources are found and accessed.","m7"],
+["The ability to format and publish research and ideas electronically is:",["Publishing literacy","Research literacy","Critical literacy","Resource literacy"],"Publishing literacy covers electronic text and multimedia publishing.","m7"],
+["Knowing how information is socially situated and produced is:",["Social-structural literacy","Emerging technology literacy","Tool literacy","Critical literacy"],"Social-structural literacy is about how information fits into the life of groups, institutions, and networks.","m7"],
+["Evaluating the strengths, weaknesses, benefits, and costs of information technologies is:",["Critical literacy","Tool literacy","Resource literacy","Publishing literacy"],"Critical literacy weighs the intellectual, human, and social strengths and limits of IT.","m7"],
+["Using software for quantitative and qualitative analysis and simulation is:",["Research literacy","Publishing literacy","Social-structural literacy","Resource literacy"],"Research literacy is IT-based tools for researchers and scholars.","m7"],
+["Which of these is a DISADVANTAGE of media listed in the module?",["A newspaper is geographically selective","Television reduces the cost of mass education","Media spread diverse cultures","Media help people respect differences"],"The other three are advantages. Geographic selectivity of newspapers is listed as a disadvantage.","m8"],
+["Which is listed as an ADVANTAGE of media?",["People can bring out hidden talents in multimedia and visual arts","Media lead to individualism","Media may induce drug and alcohol use","Ads make TV and radio less attractive"],"Showcasing talents in multimedia, arts, comedy, acting, dancing, and singing is an advantage.","m8"],
+["Which is NOT one of the challenges to integrating media literacy in the curriculum?",["Too many students already being media literate","Limited access to equipment","Teachers' lack of confidence with the material","Seeing media education as just an accessory"],"The module names limited equipment, low teacher confidence, and being seen as an accessory.","m9"],
+["Showing students examples of altered photographs belongs to which of Lynch's six ways?",["Discuss how the media edits and alters","Compare and contrast various media sources","Have students create media","Show students where to find digital resources"],"Pointing out altered photos and stories teaches students not to take media at face value.","m9"],
+["Letting students identify what ads are selling and what promises they use is:",["Examine the “truth” in advertisements","Teach students to evaluate media","Have students create media","Compare and contrast media sources"],"This is the fifth of Lynch's six ways.","m9"],
+["Which approach focuses on ideology critique and the politics of representation of gender, race, class, and sexuality?",["Critical Media Literacy Approach","Media Arts Education Approach","Media Literacy Movement Approach","Performative Approach"],"Kellner & Share (2007) describe this as the Critical Media Literacy Approach.","m10"],
+["Which approach expands literacy to popular culture while staying within a print literacy tradition?",["Media Literacy Movement Approach","Critical Media Literacy Approach","Media Arts Education Approach","PPPP Approach"],"The Media Literacy Movement Approach includes music, video, the Internet, and ads within print tradition.","m10"],
+["Teaching students to value aesthetic qualities and express themselves through art and media is the:",["Media Arts Education Approach","Critical Media Literacy Approach","Media Literacy Movement Approach","Compositional Approach"],"The Media Arts Education Approach centers on aesthetics and creative self-expression.","m10"],
+["In using media across disciplines, PPPP stands for:",["Purpose, Process, Performance, Product","Plan, Prepare, Present, Publish","Print, Picture, Podcast, Post","People, Place, Price, Promotion"],"PPPP = Purpose, Process, Performance, Product.","m10"],
+["Telling apart media that sell audiences to advertisers from those that don't is which Hobbs & Frost skill?",["Appreciating the economic underpinnings of mass media","Reflecting on media consumption habits","Identifying production techniques","Using media for advocacy"],"Skill 5 is about the economics behind media industries.","m10"],
+["Canada's Center for Digital and Media Literacy prescribes which two steps in assessment?",["Use a rubric, and frame its expectations in terms of key concepts","Give a long test, then a short quiz","Grade attendance and participation","Use peer grading and self-grading only"],"The two steps are a rubric, framed around the key concepts of media literacy.","m11"],
+["Why do some teachers find assessing media education challenging?",["Lack of technical skills, and it's about finding the right questions rather than set answers","There are no standards at all","Students refuse to make media","Media cannot be graded"],"Both reasons are given in the module.","m11"],
+["“The meaning of any media product is a collaboration between the producers and the audience” is the key concept:",["The audience negotiates meaning","Media are constructions","Media have commercial implications","Each medium has a unique aesthetic form"],"Audiences bring their own understanding, so meaning is negotiated.","m12"],
+["“Media products are created by individuals who make conscious and unconscious choices” is the key concept:",["Media are constructions","The audience negotiates meaning","Media have social and political implications","Each medium has a unique aesthetic form"],"Someone always chooses what to include and how to present it.","m12"],
+["Which key concept says media convey ideological messages about values, power, and authority?",["Media have social and political implications","Media have commercial implications","Media are constructions","The audience negotiates meaning"],"This concept is about media's influence on what people think and believe.","m12"],
+
+["Financial literacy is best defined as the ability to:",["Make informed judgments and effective decisions about the use and management of money","Earn as much money as possible","Avoid paying any taxes","Work as an accountant"],"This is the module's core definition of financial literacy.","f1"],
+["According to national surveys, which group has the lowest financial literacy?",["Young adults","Retirees","Teachers","Business owners"],"Young adults struggle to choose financial products and lack interest in financial planning.","f1"],
+["Akdag (2013) said financial literacy is most advantageous if introduced as early as:",["Preschool","College","The first job","Retirement"],"Akdag stressed starting as early as the preschool years.","f1"],
+["OECD (2005) describes financial education as:",["A long-term process best started at an early age","A one-time seminar","Only for adults","Only for bank employees"],"Starting early helps children build responsible financial behavior at each stage of education.","f1"],
+["What is the formula for net worth?",["Total assets − total liabilities","Total income − total taxes","Total savings + total loans","Monthly salary × 12"],"Net worth is the amount by which assets exceed liabilities.","f2"],
+["Which of these is a LIABILITY?",["Credit card debt","Jewelry","Savings","Investments"],"Liabilities include credit card debt, loans, and mortgage. The others are assets.","f2"],
+["Knowing where your money goes every month is which step in creating a financial plan?",["Determining cash flow","Calculating net worth","Considering the priorities","Securing your future"],"Cash flow is step 2: documenting monthly money in and out.","f2"],
+["Who defined a financial plan as a comprehensive statement of long-term objectives for security and well-being?",["Kagan (2019)","Babauta (2007)","Silva (2019)","Rose (2019)"],"Kagan (2019) gave this definition.","f2"],
+["The first of Investopedia's five financial improvement strategies is:",["Identify your starting point","Lay down your debt","Secure your financial future","Document your spending"],"You start by calculating your net worth to know where you stand.","f3"],
+["Which of these is a NEED according to the module?",["Healthcare","A designer bag","A gaming console","A vacation abroad"],"Needs include food, shelter, clothing, healthcare, and transportation.","f3"],
+["In goal setting, “time horizon” refers to:",["When the money will be needed","How fast you can withdraw money","The interest rate","How much risk you accept"],"A longer time horizon allows riskier, potentially more profitable investments.","f4"],
+["Investors who give up a chance at a large gain to avoid a large loss are called:",["Risk averse","Risk seekers","Speculators","Day traders"],"Risk-averse investors prefer safety. Risk seekers accept big losses for big gains.","f4"],
+["Liquidity refers to:",["How quickly an investment can be converted into cash","How much an investment grows","The amount of tax paid","How many investors there are"],"Liquidity needs affect which investments you choose.","f4"],
+["Growth as an investment goal is also known as:",["Capital appreciation","Capital preservation","Dividend income","Liquidity"],"Growth means an increase in the value of an investment.","f4"],
+["An investment focused on stability is also known as:",["Capital preservation or protection of principal","Capital appreciation","High-risk trading","Income generation"],"Stability means making sure the investment never loses value.","f4"],
+["What is the difference between a budget and budgeting?",["A budget is an estimate of revenue and expenses; budgeting is the process of creating a plan to spend money","They mean exactly the same thing","A budget is for businesses only; budgeting is for families only","Budgeting is borrowing money; a budget is saving it"],"A budget is the estimate. Budgeting is the planning process.","f5"],
+["In the seven steps to good budgeting, Step 3 is:",["Separate needs from wants","Set realistic goals","Design your budget","Look ahead"],"Step 1 is set goals, step 2 is identify income and expenses, and step 3 is separate needs from wants.","f5"],
+["“Set money aside to pay for unplanned expenses so as to avoid going into debt” describes:",["Plan for seasonal expenses","Put your plan into action","Identify income and expenses","Look ahead"],"This is Step 6 of good budgeting.","f5"],
+["Medium-term financial goals take about:",["One to five years","Less than one year","More than ten years","One month"],"Short-term is under 1 year, medium-term is 1 to 5 years, and long-term is over 5 years.","f6"],
+["Inflation is a big factor for which goals?",["Medium- and long-term goals","Short-term goals only","Daily expenses only","None of them"],"For short-term goals inflation matters little, but it matters for longer goals.","f6"],
+["“How much of your investment are you willing to lose in the short term to earn more in the long term?” refers to:",["Risk tolerance","Time horizon","Expectation of return","Investment type"],"This is one of the four aspects to consider when investing.","f7"],
+["Which is suggested as a source for your emergency fund?",["A bonus from work or an income tax refund","A credit card cash advance","A loan from a lending app","Your monthly grocery money"],"Use bonuses, tax refunds, or side-job earnings for the emergency fund.","f8"],
+["An email that appears to come from your bank and asks you to click a link to update your account is:",["Phishing","Skimming","A diploma mill","Identity insurance"],"Never click. Contact the company through its official channels.","f9"],
+["According to the module, government agencies will never:",["Text or call you to ask for money","Send official letters","Have websites","Collect taxes"],"Phone scammers pose as agencies like the BIR and use scare tactics.","f9"],
+["Small card readers secretly attached to ATMs or gas pumps are called:",["Skimming devices","Antivirus programs","Encryption locks","Pop-up windows"],"Skimming devices pull data from your card when you swipe it.","f9"],
+["A school that offers fake degrees and diplomas for a fee is a:",["Diploma mill","Fake scholarship","Credit card scam","Online book scam"],"Check with government education agencies whether a school is accredited.","f11"],
+["You should never apply for a scholarship that:",["Asks for money in return","Requires an essay","Has a deadline","Is offered by a university"],"Legitimate scholarships don't ask you to pay.","f11"],
+["A lock symbol to the left of a web address means the website:",["Uses encryption","Is closed","Is a government site","Has no ads"],"The lock shows encryption, which protects your data against hackers.","f10"],
+["A strong password should be at least how many characters long?",["8","4","6","3"],"Use at least eight characters with upper- and lowercase letters, numbers, and symbols.","f10"],
+["The amount a policyholder pays the insurance company is called the:",["Premium","Death benefit","Dividend","Deductible"],"Premiums are paid in exchange for financial protection.","f12"],
+["Which Marketplace plan tier gives the most coverage at the highest price?",["Gold","Bronze","Silver","Platinum"],"Bronze has the least coverage and lowest premiums, while gold has the most coverage and highest price.","f12"],
+["Under employer-sponsored insurance, a company must provide insurance if it has at least how many full-time employees?",["50","10","25","100"],"Also, don't pay over 9.66% of household income in premiums.","f12"],
+["The life insurance payout to beneficiaries when the policyholder dies is called the:",["Death benefit","Premium","Cash value","Endowment"],"The company guarantees this payout in exchange for premiums.","f13"],
+["A policyholder in excellent health with minor cholesterol issues under control falls under:",["Preferred","Preferred Plus","Standard","Substandard"],"Preferred Plus requires no such issues. Preferred allows minor, controlled ones.","f13"],
+["Which risk category do most policyholders belong to?",["Standard","Preferred Plus","Substandard","Smokers"],"Most people are healthy with normal life expectancy, possibly with a family history or minor issues.","f13"],
+["Which type of life insurance is the simplest and has low premiums, but pays nothing if you outlive the term?",["Term","Whole life","Endowment","Variable Universal Life"],"Term insurance is easy to understand and affordable, with no benefit after the term ends.","f14"],
+["Which type of life insurance combines life protection with investment, but doesn't guarantee cash values?",["Variable Universal Life (VUL)","Term","Endowment","Whole life"],"VUL earnings depend on how the selected investments perform.","f14"],
+["Which life insurance grants a lump sum after a specified time or upon death?",["Endowment","Term","Whole life","Marketplace bronze"],"Endowment lets you save for specific purposes, but premiums are higher.","f14"],
+["Whole life insurance covers the policyholder:",["For their entire life or until age 100","For 5 years only","Only while employed","Only for accidents"],"Whole life provides permanent protection and builds cash value.","f14"],
+["Silva (2019) says financial stability is:",["Not about being rich but a mindset","Only for wealthy people","Having many credit cards","Owning a big house"],"It's living without worrying about how to pay the next bill.","f15"],
+["Setting aside three amounts in three separate envelopes each payday is called the:",["Envelope system","Automagical savings","Cash flow method","Net worth method"],"Babauta's (2007) habit 7 helps you track how much remains for each expense.","f15"],
+["Which is a sign of a financially stable person (Rose, 2019)?",["You could survive for months without a paycheck","You use credit cards out of necessity","You often overdraw your account","You worry about losing your job"],"The others are signs of financial stress.","f15"],
+["Barry (2013) underscored that financial literacy:",["Has wide repercussions outside the family circle, especially in school","Should only be taught at home","Is not needed by teachers","Is the same as media literacy"],"So administrators and professors should develop a curriculum for it.","f16"],
+["Financial literacy can be integrated into which subjects?",["Mathematics, economics, social studies, home economics, and values education","Only mathematics","Only physical education","None, because it must be a separate subject"],"Financial education gives real-life contexts across many subjects.","f16"]
+];
+
+const PAIRS = [
+["Lynch (2018)","Coined the term “media” and gave six ways to integrate media literacy in class"],
+["Firestone (1993)","Media literacy is the ability to access, analyze, evaluate, and create media"],
+["Hobbs (1997)","Identifying different types of media and understanding their messages"],
+["Aufderheide (1993)","Accessing, decoding, evaluating, analyzing, and creating print and electronic media"],
+["Hobbs (2007)","Reading texts and designing hypertexts through technology"],
+["Ontario Ministry of Education (1989)","An informed and critical understanding of mass media and how it constructs reality"],
+["Go (2019)","Social media as Web 2.0, with user-generated content as its hallmark"],
+["Moscow Declaration (2012)","MIL as a combination of knowledge, attitudes, skills, and practices"],
+["Reineck & Lublinski (2015)","Three aspects of MIL: technical skills, critical attitudes, facts about media and ICT"],
+["Baacke (1996)","Added compositional skills to his media competence model"],
+["Moeller (2009)","Summarized the facets of MIL from the user perspective"],
+["Groeben (2002)","Knowledge of the inner workings (contexts, routines, contents) and effects of media"],
+["Shapiro & Hughes (1996)","The seven dimensions of media and information literacy"],
+["Hobbs & Frost (1994)","Seven media skills students can develop in class"],
+["Kellner & Share (2007)","Three approaches to teaching media literacy"],
+["Common Sense Media","Six roles of media literacy"],
+["Akdag (2013)","Financial literacy works best when introduced as early as preschool"],
+["OECD (2005)","Financial education is a long-term process best started early"],
+["Kagan (2019)","Defined a financial plan as a statement of long-term objectives"],
+["Bell (2019)","Fraud cases get worse every year; new technology gives fraudsters an edge"],
+["Silva (2019)","Financial stability is not about being rich but a mindset"],
+["Babauta (2007)","Ten habits toward financial stability, like “make savings automagical”"],
+["Rose (2019)","Signs of a financially stable person"],
+["Barry (2013)","Financial literacy has repercussions beyond the family, especially in school"]
+];
+
+/* ===================== HELPERS ===================== */
+const $ = id => document.getElementById(id);
+const store = {
+  get(k,d){ try{ const v = localStorage.getItem(k); return v==null?d:JSON.parse(v); }catch(e){ return d; } },
+  set(k,v){ try{ localStorage.setItem(k, JSON.stringify(v)); }catch(e){} }
+};
+const shuffle = a => { a = a.slice(); for(let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; } return a; };
+const tagHTML = m => `<span class="tag ${m}">${m==="M"?"Media Literacy":"Financial Literacy"}</span>`;
+const topicById = Object.fromEntries(TOPICS.map(t=>[t.id,t]));
+function chips(el, opts, cur, onPick){
+  el.innerHTML = "";
+  opts.forEach(([val,label])=>{
+    const b = document.createElement("button");
+    b.className = "chip"; b.textContent = label; b.setAttribute("aria-pressed", String(val===cur));
+    b.onclick = () => { [...el.children].forEach(c=>c.setAttribute("aria-pressed","false")); b.setAttribute("aria-pressed","true"); onPick(val); };
+    el.appendChild(b);
+  });
+}
+const SCOPE = [["all","Both modules"],["M","Media Literacy"],["F","Financial Literacy"]];
+
+/* ===================== ROUTING ===================== */
+const VIEWS = ["notes","cards","practice","match"];
+function route(){
+  const v = VIEWS.includes(location.hash.slice(1)) ? location.hash.slice(1) : "notes";
+  VIEWS.forEach(x => { $("v-"+x).hidden = x!==v; });
+  document.querySelectorAll("nav.modes a").forEach(a => { if(a.dataset.v===v) a.setAttribute("aria-current","page"); else a.removeAttribute("aria-current"); });
+}
+window.addEventListener("hashchange", ()=>{ route(); window.scrollTo(0,0); });
+
+/* ===================== NOTES ===================== */
+let readSet = new Set(store.get("rv_read", []));
+let noteScope = "all";
+function renderNotes(){
+  const q = $("noteSearch").value.trim().toLowerCase();
+  const list = TOPICS.filter(t => (noteScope==="all"||t.m===noteScope) &&
+    (!q || (t.t+" "+t.h.replace(/<[^>]+>/g," ")).toLowerCase().includes(q)));
+  const box = $("notes"); box.innerHTML = "";
+  if (!list.length){ box.innerHTML = `<p class="empty">No notes match “${q.replace(/</g,"&lt;")}”. Try another word.</p>`; }
+  list.forEach(t=>{
+    const d = document.createElement("details");
+    d.className = "note" + (readSet.has(t.id)?" read":"");
+    if (q) d.open = true;
+    d.innerHTML = `<summary><span class="done-dot" aria-hidden="true">✓</span><span class="t">${t.t}</span>${tagHTML(t.m)}<span class="chev" aria-hidden="true">›</span></summary>
+      <div class="nb">${t.h}<div class="mark"><button class="btn ${readSet.has(t.id)?"ghost":""}">${readSet.has(t.id)?"Mark as not reviewed":"Mark as reviewed"}</button></div></div>`;
+    d.querySelector(".mark button").onclick = () => {
+      readSet.has(t.id) ? readSet.delete(t.id) : readSet.add(t.id);
+      store.set("rv_read",[...readSet]); renderNotes();
+    };
+    box.appendChild(d);
+  });
+  $("noteProg").textContent = `${readSet.size} of ${TOPICS.length} topics reviewed`;
+}
+chips($("noteFilter"), SCOPE, "all", v=>{ noteScope=v; renderNotes(); });
+$("noteSearch").addEventListener("input", renderNotes);
+
+/* ===================== FLASHCARDS ===================== */
+let cardScope="all", queue=[], known=0, total=0;
+function startCards(){
+  const pool = CARDS.filter(c=>cardScope==="all"||c[0]===cardScope);
+  queue = shuffle(pool); total = pool.length; known = 0;
+  $("cardDone").hidden = true; $("fc").hidden = false; $("cardBtns").hidden = false;
+  showCard();
+}
+function showCard(){
+  $("fc").classList.remove("flip");
+  if (!queue.length){
+    $("fc").hidden = true; $("cardBtns").hidden = true; $("cardDone").hidden = false;
+    $("cardDoneN").textContent = `${total} / ${total}`; $("cardBar").style.width = "100%";
+    $("cardCount").textContent = "Set complete"; return;
+  }
+  const [m,term,def] = queue[0];
+  $("fcTag").innerHTML = tagHTML(m); $("fcTerm").textContent = term; $("fcDef").textContent = def;
+  $("cardCount").textContent = `${known} of ${total} learned · ${queue.length} left`;
+  $("cardBar").style.width = (known/total*100)+"%";
+}
+const flip = () => $("fc").classList.toggle("flip");
+$("fc").onclick = flip;
+$("fc").onkeydown = e => { if (e.key===" "||e.key==="Enter"){ e.preventDefault(); flip(); } };
+$("cardKnow").onclick = () => { queue.shift(); known++; showCard(); };
+$("cardAgain").onclick = () => { queue.push(queue.shift()); showCard(); };
+$("cardShuffle").onclick = () => { queue = shuffle(queue); showCard(); };
+$("cardRestart").onclick = startCards;
+chips($("cardFilter"), SCOPE, "all", v=>{ cardScope=v; startCards(); });
+
+/* ===================== PRACTICE ===================== */
+let pLen = 20, pScope = "all", pSet = [], pi = 0, pScore = 0, pMissed = [];
+chips($("pLen"), [[10,"10"],[20,"20"],[40,"40"],[0,"All "+QS.length]], 20, v=>pLen=v);
+chips($("pScope"), SCOPE, "all", v=>pScope=v);
+function beginPractice(set){
+  pSet = set; pi = 0; pScore = 0; pMissed = [];
+  $("pSetup").hidden = true; $("pEnd").hidden = true; $("pRun").hidden = false;
+  showQ();
+}
+$("pStart").onclick = () => {
+  const pool = shuffle(QS.filter(q => pScope==="all" || topicById[q[3]].m===pScope));
+  beginPractice(pLen ? pool.slice(0,pLen) : pool);
+};
+function showQ(){
+  const [q, opts, exp, tid] = pSet[pi];
+  $("pCount").textContent = `Question ${pi+1} of ${pSet.length}`;
+  $("pScoreLive").textContent = `${pScore} correct`;
+  $("pBar").style.width = (pi/pSet.length*100)+"%";
+  $("pTag").innerHTML = tagHTML(topicById[tid].m);
+  $("pQ").textContent = q; $("pFb").innerHTML = ""; $("pNext").hidden = true;
+  const box = $("pOpts"); box.innerHTML = "";
+  shuffle(opts.map((t,i)=>({t, ok:i===0}))).forEach((o,k)=>{
+    const b = document.createElement("button");
+    b.className = "opt"; b.dataset.ok = o.ok;
+    b.innerHTML = `<span class="l">${"ABCD"[k]}</span><span></span>`;
+    b.lastChild.textContent = o.t;
+    b.onclick = () => answer(b, o.ok, exp, tid);
+    box.appendChild(b);
+  });
+}
+function answer(btn, ok, exp, tid){
+  [...$("pOpts").children].forEach(b=>{ b.disabled = true; if (b.dataset.ok==="true") b.classList.add("right"); });
+  if (ok) pScore++; else { btn.classList.add("wrong"); pMissed.push(pSet[pi]); }
+  const fb = document.createElement("div");
+  fb.className = "fb " + (ok?"ok":"no");
+  fb.innerHTML = `<strong>${ok?"Correct!":"Not quite."}</strong><span></span> <span class="cite">Review: ${topicById[tid].t}</span>`;
+  fb.children[1].textContent = exp;
+  $("pFb").appendChild(fb);
+  $("pScoreLive").textContent = `${pScore} correct`;
+  $("pNext").textContent = pi===pSet.length-1 ? "See my score" : "Next question";
+  $("pNext").hidden = false; $("pNext").focus();
+}
+$("pNext").onclick = () => { pi++; if (pi<pSet.length) showQ(); else endPractice(); };
+function endPractice(){
+  $("pRun").hidden = true; $("pEnd").hidden = false;
+  const pct = Math.round(pScore/pSet.length*100);
+  $("pFinal").textContent = `${pScore} / ${pSet.length}`;
+  $("pMsg").textContent = pct>=90 ? `${pct}%. Excellent, you know this material well.` :
+    pct>=75 ? `${pct}%. Good work. Look over the items below to close the gaps.` :
+    `${pct}%. Go back to the study notes for the topics below, then try again.`;
+  $("pRetryMissed").hidden = !pMissed.length;
+  $("pMissList").innerHTML = pMissed.length ? "<div class='eyebrow'>Items to review</div>" : "";
+  pMissed.forEach(([q,opts,exp,tid])=>{
+    const d = document.createElement("div"); d.className = "miss";
+    d.innerHTML = `<div></div><div class="a"></div><div class="cite"></div>`;
+    d.children[0].textContent = q; d.children[1].textContent = "Answer: " + opts[0];
+    d.children[2].textContent = "Topic: " + topicById[tid].t;
+    $("pMissList").appendChild(d);
+  });
+}
+$("pRetryMissed").onclick = () => beginPractice(shuffle(pMissed));
+$("pNew").onclick = () => { $("pEnd").hidden = true; $("pSetup").hidden = false; };
+
+/* ===================== MATCH ===================== */
+let mSel = null, mLeft = 0, mRounds = store.get("rv_rounds", 0), mMiss = 0;
+function newRound(){
+  const pick = shuffle(PAIRS).slice(0,5);
+  mLeft = pick.length; mSel = null; mMiss = 0;
+  const A = $("mA"), B = $("mB"); A.innerHTML = ""; B.innerHTML = "";
+  shuffle(pick).forEach(([a])=> A.appendChild(tile(a, "auth", a)));
+  shuffle(pick).forEach(([a,b])=> B.appendChild(tile(b, "idea", a)));
+  info();
+}
+function tile(text, kind, key){
+  const b = document.createElement("button");
+  b.className = "tile " + (kind==="auth"?"auth":""); b.textContent = text;
+  b.dataset.kind = kind; b.dataset.key = key;
+  b.onclick = () => pickTile(b);
+  return b;
+}
+function pickTile(b){
+  if (b.classList.contains("ok")) return;
+  if (!mSel || mSel.dataset.kind === b.dataset.kind){
+    if (mSel) mSel.classList.remove("sel");
+    mSel = b; b.classList.add("sel"); return;
+  }
+  if (mSel.dataset.key === b.dataset.key){
+    [mSel,b].forEach(x=>{ x.classList.remove("sel"); x.classList.add("ok"); x.disabled = true; });
+    mLeft--; mSel = null;
+    if (!mLeft){ mRounds++; store.set("rv_rounds", mRounds); }
+  } else {
+    mMiss++;
+    [mSel,b].forEach(x=>{ x.classList.remove("shake"); void x.offsetWidth; x.classList.add("shake"); });
+    mSel.classList.remove("sel"); mSel = null;
+  }
+  info();
+}
+function info(){
+  $("mInfo").textContent = mLeft ? `${5-mLeft} of 5 matched · ${mMiss} wrong tries` :
+    `Round complete with ${mMiss} wrong ${mMiss===1?"try":"tries"}. Rounds finished: ${mRounds}`;
+}
+$("mNew").onclick = newRound;
+
+/* ===================== BOOT ===================== */
+renderNotes(); startCards(); newRound(); route();
+</script>
+
+</body></html>
